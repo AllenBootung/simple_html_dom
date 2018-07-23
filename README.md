@@ -10,6 +10,10 @@ Simple fork of [simple_html_dom](http://simplehtmldom.sourceforge.net/) PHP libr
 
 ## Changelog
 
+## [0.3] - 2018-07-23
+### Added
+- redo modifications previsouly done like max size for exemple
+
 ## [0.2] - 2018-04-12
 ### Added
 - hasAncestorAttribute function to check if a node has given attribute in his ancestors
