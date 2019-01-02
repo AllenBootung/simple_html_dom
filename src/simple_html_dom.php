@@ -702,8 +702,8 @@ class simple_html_dom_node
         // Notice the \[ starting the attbute?  and the @? following?  This implies that an attribute can begin with an @ sign that is not captured.
         // This implies that an html attribute specifier may start with an @ sign that is NOT captured by the expression.
         // farther study is required to determine of this should be documented or removed.
-//        $pattern = "/([\w-:\*]*)(?:\#([\w-]+)|\.([\w-]+))?(?:\[@?(!?[\w-]+)(?:([!*^$]?=)[\"']?(.*?)[\"']?)?\])?([\/, ]+)/is";
-        $pattern = "/([\w-:\*]*)(?:\#([\w-]+)|\.([\w-]+))?(?:\[@?(!?[\w-:]+)(?:([!*^$]?=)[\"']?(.*?)[\"']?)?\])?([\/, ]+)/is";
+//        $pattern = "/([a-zA-Z0-9_\-:\*]*)(?:\#([a-zA-Z0-9_\-]+)|\.([a-zA-Z0-9_\-]+))?(?:\[@?(!?[a-zA-Z0-9_\-]+)(?:([!*^$]?=)[\"']?(.*?)[\"']?)?\])?([\/, ]+)/is";
+        $pattern = "/([a-zA-Z0-9_\-:\*]*)(?:\#([a-zA-Z0-9_\-]+)|\.([a-zA-Z0-9_\-]+))?(?:\[@?(!?[a-zA-Z0-9_\-:]+)(?:([!*^$]?=)[\"']?(.*?)[\"']?)?\])?([\/, ]+)/is";
         preg_match_all($pattern, trim($selector_string).' ', $matches, PREG_SET_ORDER);
         if (is_object($debugObject)) {
             $debugObject->debugLog(2, "Matches Array: ", $matches);
@@ -942,7 +942,7 @@ class simple_html_dom_node
         if (isset($this->attr['style'])) {
             // Thanks to user gnarf from stackoverflow for this regular expression.
             $attributes = array();
-            preg_match_all("/([\w-]+)\s*:\s*([^;]+)\s*;?/", $this->attr['style'], $matches, PREG_SET_ORDER);
+            preg_match_all("/([a-zA-Z0-9_\-]+)\s*:\s*([^;]+)\s*;?/", $this->attr['style'], $matches, PREG_SET_ORDER);
             foreach ($matches as $match) {
                 $attributes[$match[1]] = $match[2];
             }
@@ -1499,7 +1499,7 @@ class simple_html_dom
             return true;
         }
 
-        if (!preg_match("/^[\w-:]+$/", $tag)) {
+        if (!preg_match("/^[a-zA-Z0-9_\-:]+$/", $tag)) {
             $node->_[WG_HDOM_INFO_TEXT] = '<' . $tag . $this->copy_until('<>');
             if ($this->char==='<') {
                 $this->link_nodes($node, false);
